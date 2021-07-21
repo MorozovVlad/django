@@ -1,0 +1,41 @@
+    {% extends 'base.html' %}
+    {% block content %}
+
+    <div class="col-md-10 offset-md-2">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Главная</a></li>
+            <li class="breadcrumb-item"><a href="#">{{product.category.name}}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ product.title }}</li>
+            </ol>
+        </nav>
+
+        <div class="row">
+            <div class="col-md-3">
+                <img src="{{ product.image.url}}" class="img-fluid">
+            </div>
+            <div class="col-md-6">
+                <h2> {{ product.title }} </h2>
+                <p> Цена : {{product.price}} </p>
+                <p> Описание : {{product.descriptions}} </p>
+                <a href="{% url 'add_to_cart' ct_model=ct_model slug=product.slug %}"><button class="btn btn-danger">Добавить в корзину </button></a>
+                {% if product.category.slug == 'Cpu' %}
+                    {% include 'cpu_spec.html'%}              
+                {% endif %}
+                {% if product.category.slug == 'Powersupplys' %}
+                    {% include 'powersupplys_spec.html'%}              
+                {% endif %}
+                {% if product.category.slug == 'Rams' %}
+                    {% include 'rams_spec.html'%}              
+                {% endif %}
+                {% if product.category.slug == 'Motherboards' %}
+                    {% include 'motherboards_spec.html'%}              
+                {% endif %}
+                {% if product.category.slug == 'Videocards' %}
+                    {% include 'videocards_spec.html'%}              
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+    {% endblock content %}

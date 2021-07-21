@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{{cart}}
+<div class="col-md-8 offset-md-2">
+    <h3>Ваша корзина {% if not cart.products.count %} пуста {% endif %} </h3>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Наименование</th>
+        <th scope="col">Изображение</th>
+        <th scope="col">Цена</th>
+        <th scope="col">Колличество</th>
+        <th scope="col">Общая стоимость</th>
+        <th scope="col">Удаление</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in cart.products.all %}
+        <tr>
+            <th scope="row">{{ item.content_object.title }}</th>
+            <td><img src = "{{ item.content_object.image.url }}" class="col-md-5"></td>
+            <td>{{ item.content_object.price }} руб</td>
+            <td>{{ item.qty }}</td>
+            <td>{{ item.final_price }}</td>
+            <td> <a href="{% url 'delete_from_cart' ct_model=item.content_object.get_model_name slug=item.content_object.slug %}"><button class="btn btn-danger">Удалить</button></a> </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock content %}
